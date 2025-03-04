@@ -23,7 +23,7 @@ public class StudentController {
 
     @GetMapping("/Students")
     public String getStudents() {
-        return "All students";
+        return studentManager.getStudents().toString();
     }
 
     @PostMapping("/Student/add")
