@@ -1,10 +1,7 @@
 package com.codelamda.student_crud.controller;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.codelamda.student_crud.dtos.ApiResponseDTO;
 import com.codelamda.student_crud.dtos.StudentDTO;
@@ -15,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j // Lombok annotation to auto-generate logger field
+@RequestMapping("/api/v1/students")
 public class StudentController {
 
     private final StudentManager studentManager;
@@ -23,15 +21,13 @@ public class StudentController {
         this.studentManager = studentManager;
     }
 
-    @GetMapping("/Students")
+    @GetMapping("")
     public ResponseEntity<ApiResponseDTO> getStudents() {
         return ResponseEntity.ok(ApiResponseDTO.success(studentManager.getStudents()));
     }
 
-    @PostMapping("/Student/add")
+    @PostMapping("/add")
     public ResponseEntity<ApiResponseDTO> addStudent(@RequestBody StudentDTO student) {
-        log.info("Student added: {}", student);
-
         Student newStudent = studentManager.createStudent(student.getName(), student.getSurname(), student.getEmail());
         return ResponseEntity.ok(ApiResponseDTO.success(newStudent));
 
